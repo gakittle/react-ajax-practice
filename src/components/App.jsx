@@ -1,5 +1,6 @@
 import React from 'react';
 import Sender from './Sender.jsx';
+import Messages from './Messages.jsx';
 import $ from 'jquery';
 
 class App extends React.Component {
@@ -11,7 +12,6 @@ class App extends React.Component {
   }
 
   onSend(name, message) {
-    console.log('moo:', name, message);
     var post = { name, message };
     console.log(post);
     $.ajax({
@@ -21,7 +21,10 @@ class App extends React.Component {
       data: JSON.stringify(post),
       contentType: 'application/json',
       success: data => {
-        console.log('moooooo!!', data);
+        console.log(data);
+        var newState = this.state.messages;
+        newState.push(post);
+        this.setState({ messages: newState });
       },
       error: err => {
         console.log('error: failed to send data'), err;
@@ -32,7 +35,9 @@ class App extends React.Component {
   render() {
     return (
       <div>
-        <div className="messages">Hello world</div>
+        <div className="messages">
+          <Messages messages={this.state.messages} />
+        </div>
         <div className="sender">
           <Sender onSend={this.onSend.bind(this)} />
         </div>
