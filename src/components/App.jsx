@@ -1,13 +1,15 @@
 import React from 'react';
+import $ from 'jquery';
 import Sender from './Sender.jsx';
 import Messages from './Messages.jsx';
-import $ from 'jquery';
+import Response from './Response.jsx';
 
 class App extends React.Component {
   constructor(props) {
     super(props);
     this.state = {
-      messages: []
+      messages: [],
+      response: 'Response goes here!'
     };
   }
 
@@ -25,6 +27,7 @@ class App extends React.Component {
         var newState = this.state.messages;
         newState.push(post);
         this.setState({ messages: newState });
+        this.setState({ response: data });
       },
       error: err => {
         console.log('error: failed to send data'), err;
@@ -35,6 +38,12 @@ class App extends React.Component {
   render() {
     return (
       <div>
+        <div className="response">
+          Server Response:
+          <div>
+            <Response response={this.state.response} />
+          </div>
+        </div>
         <div className="sender">
           <Sender onSend={this.onSend.bind(this)} />
         </div>
