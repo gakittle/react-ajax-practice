@@ -15,7 +15,6 @@ class App extends React.Component {
 
   onSend(name, message) {
     var post = { name, message };
-    console.log(post);
     $.ajax({
       url:
         'http://ec2-13-57-25-101.us-west-1.compute.amazonaws.com:3000/api/hrsf111/greeting',
@@ -23,11 +22,11 @@ class App extends React.Component {
       data: JSON.stringify(post),
       contentType: 'application/json',
       success: data => {
-        console.log(data);
         var newState = this.state.messages;
         newState.push(post);
         this.setState({ messages: newState });
         this.setState({ response: data });
+        document.getElementById('msg').value = '';
       },
       error: err => {
         console.log('error: failed to send data'), err;
