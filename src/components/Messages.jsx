@@ -1,11 +1,18 @@
 import React from 'react';
 
 var Messages = props => (
-  <ul>
+  <div>
     {props.messages.map(msg => {
-      return <li>{msg.message}</li>;
+      return (
+        <div className="chat">
+          <div className="user" style={{ fontWeight: 'bold' }}>
+            {msg.name}:
+          </div>
+          <div className="text">{msg.message}</div>
+        </div>
+      );
     })}
-  </ul>
+  </div>
 );
 
 export default Messages;

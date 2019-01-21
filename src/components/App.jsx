@@ -35,11 +35,11 @@ class App extends React.Component {
   render() {
     return (
       <div>
-        <div className="messages">
-          <Messages messages={this.state.messages} />
-        </div>
         <div className="sender">
           <Sender onSend={this.onSend.bind(this)} />
+        </div>
+        <div className="messages">
+          <Messages messages={this.state.messages} />
         </div>
       </div>
     );
